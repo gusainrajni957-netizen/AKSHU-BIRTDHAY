@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday My Love ❤️</title>
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+}
+.section {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+h1 { font-size: 2.5rem; color: #fff; }
+p { font-size: 1.2rem; color: #fff; max-width: 500px; }
+button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 25px;
+  background: #fff;
+  color: #ff4e50;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+}
+input {
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  margin-top: 10px;
+  text-align: center;
+}
+.heart { font-size: 3rem; animation: beat 1s infinite; }
+@keyframes beat {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  top: -10px;
+  animation: fall linear infinite;
+}
+@keyframes fall {
+  to { transform: translateY(110vh); }
+}
+.hidden { display:none; }
+#letter {
+  font-size: 1.2rem;
+  color: white;
+  border-right: 2px solid white;
+  white-space: nowrap;
+  overflow: hidden;
+}
+</style>
+</head>
+<body>
+
+<!-- YouTube Romantic Song -->
+<div id="player" style="display:none"></div>
+
+<div class="section">
+  <h1>🎉 Happy Birthday My Love 🎉</h1>
+  <div class="heart">❤️</div>
+  <p>You are the most beautiful part of my life 💕</p>
+  <button onclick="startExperience(1)">Tap for Surprise 💖</button>
+</div>
+
+<div class="section" style="display:none">
+  <h1>💌 For You</h1>
+  <p>I fall in love with you more every single day 😘✨</p>
+  <button onclick="nextPage(2)">Next ➡️</button>
+</div>
+
+<div class="section" style="display:none">
+  <h1>🌹 My Promise</h1>
+  <p>I will always stand by your side, no matter what ❤️</p>
+  <button onclick="nextPage(3)">Next ➡️</button>
+</div>
+
+<!-- Love Letter Animation -->
+<div class="section" style="display:none">
+  <h1>💌 A Letter For You</h1>
+  <p id="letter"></p>
+  <button onclick="nextPage(4)">Next ➡️</button>
+</div>
+
+<!-- Secret Unlock -->
+<div class="section" style="display:none">
+  <h1>🔐 Secret Message</h1>
+  <p>Enter our special word 💖</p>
+  <input type="password" id="secretInput" placeholder="Enter secret...">
+  <button onclick="checkSecret()">Unlock ❤️</button>
+  <p id="secretMsg" class="hidden">💖 You are my forever, my happiness, my everything. I love you endlessly ❤️</p>
+  <button onclick="nextPage(5)">Final Surprise 🎂</button>
+</div>
+
+<div class="section" style="display:none">
+  <h1>🎂 Final Surprise</h1>
+  <p>You are my everything 💖 Happy Birthday once again 🎉</p>
+</div>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+let player;
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('player', {
+    height: '0',
+    width: '0',
+    videoId: 'GxldQ9eX2wo', // Until I Found You
+    playerVars: { autoplay: 0, loop: 1, playlist: 'GxldQ9eX2wo' }
+  });
+}
+
+let current = 0;
+let musicStarted = false;
+
+function startExperience(index) {
+  if (!musicStarted && player) {
+    player.playVideo();
+    musicStarted = true;
+  }
+  nextPage(index);
+  startTyping();
+}
+
+function nextPage(index) {
+  document.querySelectorAll('.section')[current].style.display = 'none';
+  current = index;
+  document.querySelectorAll('.section')[current].style.display = 'flex';
+}
+
+function checkSecret() {
+  let input = document.getElementById('secretInput').value.toLowerCase();
+  if (input === "akshu" || input === "akshu" || input === "forever") {
+    document.getElementById('secretMsg').classList.remove('hidden');
+  } else {
+    alert("Wrong secret 😢 Try again!");
+  }
+}
+
+// Typing Love Letter
+const text = "From the moment you came into my life, everything became more beautiful. You are my happiness, my peace, and my forever. I promise to love you more with every heartbeat and thanks for bring there i love you so much my baby girlllllly mwahhhh❤️";
+let i = 0;
+function startTyping() {
+  let letter = document.getElementById("letter");
+  function type() {
+    if (i < text.length) {
+      letter.innerHTML += text.charAt(i);
+      i++;
+      setTimeout(type, 40);
+    }
+  }
+  if (letter.innerHTML === "") type();
+}
+
+function createConfetti() {
+  for (let i = 0; i < 120; i++) {
+    let confetti = document.createElement('div');
+    confetti.classList.add('confetti');
+    confetti.style.left = Math.random() * window.innerWidth + 'px';
+    confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+    confetti.style.background = `hsl(${Math.random()*360},100%,50%)`;
+    document.body.appendChild(confetti);
+  }
+}
+createConfetti();
+</script>
+
+</body>
+</html>
